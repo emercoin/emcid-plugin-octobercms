@@ -1,0 +1,4 @@
+1.0.0:
+    - First version of Emercoin ID
+    - create_aspanta_emercoinid_user_providers.php
+    - Require RainLab.User
