@@ -3,12 +3,27 @@ description = "Shows the client area sign in form"
 [viewBag]
 snippetCode = "login-module"
 snippetName = "Sign in module"
-snippetProperties[redirect|type] = "string"
-snippetProperties[redirect|title] = "Redirection page"
-snippetProperties[redirect|default] = "/clients"
+snippetProperties[redirect][type] = "string"
+snippetProperties[redirect][title] = "Redirection page"
+snippetProperties[redirect][default] = "/clients"
+
+[account]
+paramCode = "code"
+forceSecure = 0
+
+[emercoinid]
 ==
+{% if errors is defined %}
+    <b style="color:red">{{ errors.first() }}</b>
+{% endif %}
+
 {% if user %}
-    <p>You are logged in</p>
+    {% if user.aspanta_emercoinid_providers[0].provider_token is defined %}
+        Emercoin SSL Certificate ID:<br>
+        {{ user.aspanta_emercoinid_providers[0].provider_token }}
+    {% else %}
+        <p>You are logged in.</p>
+    {% endif %}
     <p>
         <a href="{{ 'clients'|staticPage }}" class="btn btn-default">
             Access Client Area
@@ -25,6 +40,9 @@ snippetProperties[redirect|default] = "/clients"
         <label>Password</label>
         <input type="password" name="password" value="" class="text" />
         <button type="submit" class="submit">Sign in</button>
+        {% if emercoinid_links is defined %}
+        <p>Or Sign in with <a href="{{ emercoinid_links['EmercoinID'] }}" class='login'>Emercoin ID</a></p>
+        {% endif %}        
     {{ form_close() }}
 
     <div class="row">
