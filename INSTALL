@@ -3,7 +3,6 @@ Make the Emercoin ID Application:
  - Create the app
  - Use URI as https://YOUR_OCTOBERCMS_HOSTNAME/aspanta/emercoinid/EmercoinID/auth
 
-
 Plugin installation and configuration:
  - Copy folder 'plugins' to the htdocs root folder
  - Go to htdocs folder and run the command:
