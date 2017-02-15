@@ -47,6 +47,5 @@ class EmercoinID extends ComponentBase
 		$this->page['emercoinid_links'] = $emercoinid_links;
 
 		$this->page['errors'] = Session::get('errors', new ViewErrorBag);
-		// var_export($this->page['errors']->getBag('default')->first()); exit;
 	}
 }
