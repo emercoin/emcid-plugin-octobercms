@@ -5,7 +5,7 @@
 	</div>
 	<div class="content">
 		<ol>
-			<li>Go to Emercoin ID site (at such as <a target="_blank" href="https://id.emercoin.net/">https://id.emercoin.net/</a>) and click <b>Create a New App</b> link.</li>
+			<li>Go to Emercoin ID site (at <a target="_blank" href="https://oauth.authorizer.io/">https://oauth.authorizer.io/</a>) and click <b>Create a New App</b> link.</li>
 			<li>Enter your <b>App Name</b> (usually your site name) along with any other required fields and click <b>Create App</b></li>
 			<li>Copy your <b>Client App ID</b> and <b>App Secret</b> into the fields below.</li>
 			<li>Click <b>Edit</b> on your App you've just created, and set the valid <b>redirect URIs</b> to <span style="color:green"><?= URL::route('aspanta_emercoinid_provider', ['EmercoinID', 'auth']) ?></span></li>
