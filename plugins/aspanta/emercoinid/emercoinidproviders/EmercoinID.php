@@ -16,6 +16,10 @@ class EmercoinID extends EmercoinIDProviderBase
 {
 	use \October\Rain\Support\Traits\Singleton;
 
+	const AUTH_PAGE  = 'https://oauth.authorizer.io/oauth/v2/auth';
+	const TOKEN_PAGE = 'https://oauth.authorizer.io/oauth/v2/token';
+	const INFOCARD   = 'https://oauth.authorizer.io/infocard';
+
 	/**
 	 * Initialize the singleton free from constructor parameters.
 	 */
@@ -44,27 +48,6 @@ class EmercoinID extends EmercoinIDProviderBase
 				'label' => 'Enabled?',
 				'type' => 'checkbox',
 				'default' => 'true',
-				'tab' => 'Emercoin ID',
-			],
-
-			'providers[EmercoinID][auth_page]' => [
-				'label' => 'Auth Page',
-				'type' => 'text',
-				'comment' => 'Emercoin ID Auth Page (example: https://id.emercoin.net/oauth/v2/auth)',
-				'tab' => 'Emercoin ID',
-			],
-
-			'providers[EmercoinID][token_page]' => [
-				'label' => 'Token Page',
-				'type' => 'text',
-				'comment' => 'Emercoin ID Token Page (example: https://id.emercoin.net/oauth/v2/token)',
-				'tab' => 'Emercoin ID',
-			],
-
-			'providers[EmercoinID][infocard]' => [
-				'label' => 'Infocard Page',
-				'type' => 'text',
-				'comment' => 'Emercoin ID Infocard Page (example: https://id.emercoin.net/infocard)',
 				'tab' => 'Emercoin ID',
 			],
 
@@ -169,7 +152,7 @@ class EmercoinID extends EmercoinIDProviderBase
 		            'response_type' => 'code',
 		        ]
 		    );
-		    $path = $providers['EmercoinID']['auth_page'].'?'.$authQ;
+		    $path = $this::AUTH_PAGE.'?'.$authQ;
 		    header("Location: $path");
 		    exit;
 		} elseif (Input::has('code') && !Input::has('error') ) {
@@ -201,11 +184,11 @@ class EmercoinID extends EmercoinIDProviderBase
 		        ],
 		    ];
 
-			$response = @file_get_contents($providers['EmercoinID']['token_page'], false, stream_context_create($opts));
+			$response = @file_get_contents($this::TOKEN_PAGE, false, stream_context_create($opts));
 			$response = json_decode($response, true);
 
 		    if (!array_key_exists('error', $response)) {
-		        $infocard_url = $providers['EmercoinID']['infocard'];
+		        $infocard_url = $this::INFOCARD;
 		        $infocard_url .= '/'.$response['access_token'];
 		        $opts = [
 		            'http' => [
